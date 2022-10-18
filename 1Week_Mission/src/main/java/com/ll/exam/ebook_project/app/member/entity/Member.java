@@ -22,7 +22,6 @@ public class Member extends BaseEntity {
     @Column(unique = true)
     private String email;
     private String nickname;
-    @Column
     private Integer authLevel;
 
     public String getName() {

@@ -40,7 +40,7 @@ public class CustomAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         if (savedRequest != null) {
             url = savedRequest.getRedirectUrl();
         } else if (prevPage != null && prevPage.length() > 0) {
-            // "/"로 redirect
+
             if (prevPage.contains("/member/join")) {
                 url = "/";
             } else {
@@ -53,7 +53,7 @@ public class CustomAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         redirectStrategy.sendRedirect(request, response, url);
     }
 
-    private void clearSession(HttpServletRequest request) {
+    protected void clearSession(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
