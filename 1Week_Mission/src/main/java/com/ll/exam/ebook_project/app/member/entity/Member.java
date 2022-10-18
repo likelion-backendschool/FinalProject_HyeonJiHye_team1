@@ -15,9 +15,6 @@ import javax.persistence.*;
 @SuperBuilder
 @ToString(callSuper = true)
 public class Member extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
     @Column(unique = true)
     private String username;
     @JsonIgnore
