@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title>닉네임 변경</title>
+</head>
+
+<body>
+<main layout:fragment="main">
+    <section class="section section-login flex-grow flex flex-col items-center justify-center">
+
+        <div class="max-w-md w-full px-2 pt-4">
+            <h1 class="font-bold text-2xl text-center mb-3">작가명 변경</h1>
+
+            <script>
+                let MemberModify__submitDone = false;
+
+                function MemberModify__submit(form) {
+                    if (MemberModify__submitDone) {
+                        return;
+                    }
+                    form.nickname.value = form.nickname.value.trim();
+
+                    form.submit();
+                    MemberModify__submitDone = true;
+                }
+            </script>
+
+            <form th:action method="POST" class="flex flex-col gap-3"
+                  onsubmit="MemberModify__submit(this); return false;">
+
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">사용중인 작가명</span>
+                    </label>
+                    <div type="text" class="input input-bordered pt-3"
+                         th:text="${#authentication.principal.nickname}"
+                         readonly>
+                    </div>
+                </div>
+
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">원하시는 작가명을 입력해주세요.</span>
+                    </label>
+                    <input type="nickname" name="nickname" placeholder="작가명" class="input input-bordered" maxlength="50">
+                </div>
+
+                <div class="grid mt-7">
+                    <input class="btn btn-primary" type="submit" value="작가명 업데이트">
+                </div>
+            </form>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

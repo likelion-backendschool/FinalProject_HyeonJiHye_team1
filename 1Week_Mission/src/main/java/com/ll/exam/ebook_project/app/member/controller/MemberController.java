@@ -2,6 +2,7 @@ package com.ll.exam.ebook_project.app.member.controller;
 
 import com.ll.exam.ebook_project.app.member.entity.Member;
 import com.ll.exam.ebook_project.app.member.form.JoinForm;
+import com.ll.exam.ebook_project.app.member.form.ModifyForm;
 import com.ll.exam.ebook_project.app.member.service.MemberService;
 import com.ll.exam.ebook_project.util.Ut;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -65,6 +69,28 @@ public class MemberController {
         } else {
             return "redirect:/member/findUsername?msg=" + Ut.url.encode("가입한 아이디: ") + member.getUsername();
         }
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/profile")
+    public String showProfile() {
+        return "member/profile";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify")
+    public String showModify() {
+        return "member/modify";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify")
+    public String modify(@Valid ModifyForm modifyForm, Principal principal) {
+        Member member = memberService.findByUsername(principal.getName()).get();
+
+        memberService.modify(member, modifyForm.getNickname());
+
+        return "redirect:/member/profile?msg=" + Ut.url.encode("작가명이 변경되었습니다.");
     }
 
 }
