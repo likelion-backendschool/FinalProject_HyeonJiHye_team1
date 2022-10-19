@@ -25,9 +25,13 @@ public class CustomUserDetailService implements UserDetailsService {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if (member.getAuthLevel() == 7){
-            authorities.add(new SimpleGrantedAuthority("ADMIN"));
-        }
+//        if (member.getNickname() != null) {
+//            authorities.add(new SimpleGrantedAuthority("AUTHOR"));
+//        }
+//
+//        if (member.getAuthLevel() == 7){
+//            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+//        }
 
         authorities.add(new SimpleGrantedAuthority("MEMBER"));
 
