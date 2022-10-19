@@ -12,7 +12,7 @@ import java.util.List;
 public class MemberContext extends User {
     private final Long id;
     private final LocalDateTime createDate;
-    private final LocalDateTime modifyDate;
+    private final LocalDateTime updateDate;
     private final String username;
     private final String email;
     private final String nickname;
@@ -21,7 +21,7 @@ public class MemberContext extends User {
         super(member.getUsername(), member.getPassword(), authorities);
         this.id = member.getId();
         this.createDate = member.getCreateDate();
-        this.modifyDate = member.getModifyDate();
+        this.updateDate = member.getUpdateDate();
         this.username = member.getUsername();
         this.email = member.getEmail();
         this.nickname = member.getNickname();
@@ -32,7 +32,7 @@ public class MemberContext extends User {
                 .builder()
                 .id(id)
                 .createDate(createDate)
-                .modifyDate(modifyDate)
+                .updateDate(updateDate)
                 .username(username)
                 .email(email)
                 .nickname(nickname)

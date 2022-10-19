@@ -2,6 +2,7 @@ package com.ll.exam.ebook_project.app.member.service;
 
 import com.ll.exam.ebook_project.app.member.entity.Member;
 import com.ll.exam.ebook_project.app.member.exception.AlreadyJoinException;
+import com.ll.exam.ebook_project.app.member.form.ModifyForm;
 import com.ll.exam.ebook_project.app.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -59,6 +60,15 @@ public class MemberService {
     }
 
     public Member findByEmail(String email) {
+
         return memberRepository.findByEmail(email);
     }
+
+    public void modify(Member member, String nickname) {
+        member.setNickname(nickname);
+
+        memberRepository.save(member);
+
+    }
+
 }

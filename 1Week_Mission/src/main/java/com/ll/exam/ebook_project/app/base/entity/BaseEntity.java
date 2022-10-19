@@ -31,7 +31,7 @@ public class BaseEntity {
     @CreatedDate
     private LocalDateTime createDate;
     @LastModifiedDate
-    private LocalDateTime modifyDate;
+    private LocalDateTime updateDate;
     @Transient
     @Builder.Default
     private Map<String, Object> extra = new LinkedHashMap<>();
@@ -42,6 +42,6 @@ public class BaseEntity {
 
     public BaseEntity(LocalDateTime createDate, LocalDateTime modifyDate) {
         this.createDate = createDate;
-        this.modifyDate = modifyDate;
+        this.updateDate = modifyDate;
     }
 }
