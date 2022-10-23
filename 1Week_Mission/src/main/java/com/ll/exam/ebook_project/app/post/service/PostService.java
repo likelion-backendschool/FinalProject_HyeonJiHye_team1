@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -26,17 +29,14 @@ public class PostService {
 
     }
 
-//    public Post doWrite(Member member, String subject, String content, String contentHtml) {
-//        Post post = Post
-//                .builder()
-//                .author(member)
-//                .subject(subject)
-//                .content(content)
-//                .contentHtml(contentHtml)
-//                .build();
-//
-//        postRepository.save(post);
-//
-//        return post;
-//    }
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
+
+    public Post findById(Long id) {
+        Post post = postRepository.findById(id).orElse(null);
+
+        return post;
+    }
+
 }

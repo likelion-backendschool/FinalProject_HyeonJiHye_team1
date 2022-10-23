@@ -9,8 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-import static javax.persistence.FetchType.LAZY;
-
 @Entity
 @Getter
 @Setter
@@ -19,7 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 @SuperBuilder
 @ToString(callSuper = true)
 public class Post extends BaseEntity {
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne
     private Member author;
 
     @Column(unique = true)

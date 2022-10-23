@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -65,5 +66,44 @@ public class MemberControllerTests {
                 .andExpect(redirectedUrlPattern("/member/login?msg=**"));
 
         assertThat(memberService.findByUsername("user999").isPresent()).isTrue();
+    }
+
+    @Test
+    @DisplayName("회원 프로필 - 작가명 변경 폼")
+    @WithUserDetails("user1")
+    void t3() throws Exception {
+        ResultActions resultActions = mvc
+                .perform(get("/member/modify"))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(handler().handlerType(MemberController.class))
+                .andExpect(handler().methodName("showModify"))
+                .andExpect(content().string(containsString("작가명 변경")));
+    }
+
+    @Test
+    @DisplayName("회원 프로필 - 작가명 변경")
+    @WithUserDetails("user1")
+    void t4() throws Exception {
+        ResultActions resultActions = mvc
+                .perform(post("/member/modify")
+                        .with(csrf())
+                        .param("username", "user1")
+                        .param("email", "user1@test.com")
+                        .param("nickname", "authOne")
+                )
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(MemberController.class))
+                .andExpect(handler().methodName("modify"))
+                .andExpect(redirectedUrlPattern("/member/profile"))
+                .andExpect(content().string(containsString("authOne")));
+
+
+        assertThat(memberService.findByUsername("user1").isPresent()).isTrue();
     }
 }
