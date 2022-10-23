@@ -4,12 +4,14 @@ import com.ll.exam.ebook_project.app.member.entity.Member;
 import com.ll.exam.ebook_project.app.member.form.JoinForm;
 import com.ll.exam.ebook_project.app.member.form.ModifyForm;
 import com.ll.exam.ebook_project.app.member.service.MemberService;
+import com.ll.exam.ebook_project.app.security.dto.MemberContext;
 import com.ll.exam.ebook_project.util.Ut;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +61,7 @@ public class MemberController {
 
     @PreAuthorize("isAnonymous()")
     @PostMapping("/findUsername")
-    public String doFindUsername(@Valid String email, Model model){
+    public String findUsername(@Valid String email, Model model){
         Member member = memberService.findByEmail(email);
 
         model.addAttribute("username", member);
@@ -73,7 +75,9 @@ public class MemberController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/profile")
-    public String showProfile() {
+    public String showProfile(Principal principal, Model model) {
+        Optional<Member> member = memberService.findByUsername(principal.getName());
+        model.addAttribute("member",member);
         return "member/profile";
     }
 
@@ -85,7 +89,7 @@ public class MemberController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify")
-    public String modify(@Valid ModifyForm modifyForm, Principal principal) {
+    public String modifyNickname(@Valid ModifyForm modifyForm, Principal principal, Model model) {
         Member member = memberService.findByUsername(principal.getName()).get();
 
         memberService.modify(member, modifyForm.getNickname());
@@ -93,4 +97,10 @@ public class MemberController {
         return "redirect:/member/profile?msg=" + Ut.url.encode("작가명이 변경되었습니다.");
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modifyPassword")
+    public String modifyPassword(Principal principal, Model model) {
+        /* 추후 추가 */
+        return "member/modifyPassword";
+    }
 }
