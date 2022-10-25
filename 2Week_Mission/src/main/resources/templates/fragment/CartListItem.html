@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/html">
+
+<body>
+<th:block th:fragment="cartListItem">
+    <div class="card bg-base-100 shadow-xl">
+<div>
+    <input onchange="CartItemCheckbox__changed();" type="checkbox" class="cartItemCheckbox checkbox"
+           th:value="${item.id}">
+    <div>
+        <a th:href="@{|/cart/${item.id}|}" class="block">
+            <figure>
+                <svg width="200" height="200" th:data-jdenticon-value="${item.product.subject}"></svg>
+            </figure>
+        </a>
+    </div>
+
+</div>
+
+        <div class="card-body">
+            <h2 class="card-title flex flex-wrap">
+                <a th:href="@{|/product/${item.product.id}|}" class="mr-auto">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span th:text="${item.product.subject}"></span>
+                </a>
+                <div class="flex">
+                    <svg width="20" height="20" th:data-jdenticon-value="${item.product.author.jdenticon}"></svg>
+                    <div th:text="${item.product.author.name}"></div>
+                </div>
+            </h2>
+            <div th:text="|￦ ${item.product.salePrice}|"></div>
+            <div th:utext="${item.product.extra_productTagLinks}"></div>
+            <div class="flex justify-end">
+                <div class="badge badge-outline">
+                    <i class="fa-solid fa-pen"></i>
+                    <span class="ml-2"
+                          th:text="${#temporals.format(item.createDate, 'yy-MM-dd HH:mm')}"></span>
+                </div>
+            </div>
+            <div th:if="${item.createDate != item.modifyDate}" class="flex justify-end">
+                <div class="badge">
+                    <i class="fa-solid fa-eraser"></i>
+                    <span class="ml-2"
+                          th:text="${#temporals.format(item.modifyDate, 'yy-MM-dd HH:mm')}"></span>lear
+                </div>
+            </div>
+            <div class="card-actions justify-end">
+                <a class="btn btn-sm">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span class="ml-2">바로구매</span>
+                </a>
+                <a href="javascript:;" onclick="$(this).next().submit();" class="btn btn-sm">
+                    <i class="fa-solid fa-trash"></i>
+                    <span class="ml-2">제거</span>
+                </a>
+                <form method="POST" th:action="@{|/cart/remove/${item.product.id}|}" hidden></form>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+
+</html>

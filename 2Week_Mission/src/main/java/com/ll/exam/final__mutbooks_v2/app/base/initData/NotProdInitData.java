@@ -1,5 +1,7 @@
 package com.ll.exam.final__mutbooks_v2.app.base.initData;
 
+import com.ll.exam.final__mutbooks_v2.app.cart.entity.CartItem;
+import com.ll.exam.final__mutbooks_v2.app.cart.service.CartService;
 import com.ll.exam.final__mutbooks_v2.app.member.entity.Member;
 import com.ll.exam.final__mutbooks_v2.app.member.service.MemberService;
 import com.ll.exam.final__mutbooks_v2.app.post.service.PostService;
@@ -19,7 +21,8 @@ public class NotProdInitData {
     CommandLineRunner initData(
             MemberService memberService,
             PostService postService,
-            ProductService productService
+            ProductService productService,
+            CartService cartService
     ) {
         return args -> {
             if (initDataDone) {
@@ -69,6 +72,8 @@ public class NotProdInitData {
             Product product3 = productService.create(member1, "상품명3", 50_000, "REACT", "#IT #REACT");
             Product product4 = productService.create(member2, "상품명4", 60_000, "HTML", "#IT #HTML");
 
+            CartItem cartItem1 = cartService.addItem(member1, product1);
+            CartItem cartItem2 = cartService.addItem(member2, product2);
         };
     }
 }
