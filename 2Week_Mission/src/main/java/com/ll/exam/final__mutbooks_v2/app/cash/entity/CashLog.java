@@ -1,11 +1,9 @@
-package com.ll.exam.final__mutbooks_v2.app.cart.entity;
+package com.ll.exam.final__mutbooks_v2.app.cash.entity;
 
 import com.ll.exam.final__mutbooks_v2.app.base.entity.BaseEntity;
 import com.ll.exam.final__mutbooks_v2.app.member.entity.Member;
-import com.ll.exam.final__mutbooks_v2.app.product.entity.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
@@ -16,18 +14,18 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
-public class CartItem extends BaseEntity {
+public class CashLog extends BaseEntity {
     @ManyToOne(fetch = LAZY)
-    private Member buyer;
+    private Member member;
 
-    @ManyToOne(fetch = LAZY)
-    private Product product;
+    private long price; // 변동가격
 
-    public CartItem(long id) {
+    private String eventType; //변동종류
+
+    public CashLog(long id) {
         super(id);
     }
 }

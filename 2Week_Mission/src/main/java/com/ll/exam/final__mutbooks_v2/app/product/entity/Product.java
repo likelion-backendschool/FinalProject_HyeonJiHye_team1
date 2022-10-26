@@ -97,4 +97,5 @@ public class Product extends BaseEntity {
                 .sorted()
                 .collect(Collectors.joining(" "));
     }
+
 }

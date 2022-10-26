@@ -67,4 +67,12 @@ public class CartService {
     public boolean hasItem(Member buyer, Product product) {
         return cartItemRepository.existsByBuyerIdAndProductId(buyer.getId(), product.getId());
     }
+
+    public void removeItem(
+            Member buyer,
+            Long productId
+    ) {
+        Product product = new Product(productId);
+        removeItem(buyer, product);
+    }
 }
