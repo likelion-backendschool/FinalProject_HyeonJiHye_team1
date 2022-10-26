@@ -1,6 +1,5 @@
 package com.ll.exam.final__mutbooks_v2.controller;
 
-import com.ll.exam.final__mutbooks_v2.app.member.service.MemberService;
 import com.ll.exam.final__mutbooks_v2.app.order.contorller.OrderController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,8 +25,6 @@ public class OrderControllerTests {
 
     @Autowired
     private MockMvc mvc;
-    @Autowired
-    private MemberService memberService;
 
     @Test
     @DisplayName("주문 내역 상세 보기")

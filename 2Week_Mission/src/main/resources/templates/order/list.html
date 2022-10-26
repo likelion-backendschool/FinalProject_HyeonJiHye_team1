@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title>주문 내역</title>
+</head>
+
+<body>
+<main layout:fragment="main">
+    <section class="section section-write container mx-auto">
+
+        <div class="px-2 pt-4">
+            <h1 class="font-bold text-lg">주문 내역 보기</h1>
+            <ul>
+                <li th:each="order : ${orders}" class="flex m-5 gap-2">
+                    <a th:href="@{|/order/${order.id}|}" th:text="|No. : ${order.id}|"></a>
+                    <a th:href="@{|/order/${order.id}|}" th:text="|주문명 : ${order.name}|"></a>
+                    <div class="m-2">
+                        <span th:text="${order.calculatePayPrice}">원</span>
+                    </div>
+                    <div>
+                        <span>주문일시</span>
+                        <span th:text="${#temporals.format(order.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+                    </div>
+                </li>
+            </ul>
+            <div class="card-actions justify-end">
+                <a class="btn btn-sm">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span class="ml-2">자세히</span>
+                </a>
+                <a class="btn btn-sm">
+                    <i class="fa-solid fa-trash"></i>
+                    <span class="ml-2">주문 취소</span>
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>
