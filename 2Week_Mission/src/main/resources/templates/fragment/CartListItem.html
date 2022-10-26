@@ -4,18 +4,18 @@
 <body>
 <th:block th:fragment="cartListItem">
     <div class="card bg-base-100 shadow-xl">
-<div>
-    <input onchange="CartItemCheckbox__changed();" type="checkbox" class="cartItemCheckbox checkbox"
-           th:value="${item.id}">
-    <div>
-        <a th:href="@{|/cart/${item.id}|}" class="block">
-            <figure>
-                <svg width="200" height="200" th:data-jdenticon-value="${item.product.subject}"></svg>
-            </figure>
-        </a>
-    </div>
+        <div>
+            <input onchange="CartItemCheckbox__changed();" type="checkbox" class="cartItemCheckbox checkbox"
+                   th:value="${item.id}">
+            <div>
+                <a th:href="@{|/cart/${item.id}|}" class="block">
+                    <figure>
+                        <svg width="200" height="200" th:data-jdenticon-value="${item.product.subject}"></svg>
+                    </figure>
+                </a>
+            </div>
 
-</div>
+        </div>
 
         <div class="card-body">
             <h2 class="card-title flex flex-wrap">

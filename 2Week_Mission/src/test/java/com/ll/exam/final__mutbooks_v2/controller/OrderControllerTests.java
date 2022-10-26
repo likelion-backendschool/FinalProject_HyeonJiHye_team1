@@ -1,7 +1,7 @@
 package com.ll.exam.final__mutbooks_v2.controller;
 
+import com.ll.exam.final__mutbooks_v2.app.member.service.MemberService;
 import com.ll.exam.final__mutbooks_v2.app.order.contorller.OrderController;
-import com.ll.exam.final__mutbooks_v2.app.product.service.ProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,20 +27,20 @@ public class OrderControllerTests {
     @Autowired
     private MockMvc mvc;
     @Autowired
-    private ProductService productService;
+    private MemberService memberService;
 
     @Test
-    @DisplayName("주문 상세 화면")
+    @DisplayName("주문 내역 상세 보기")
     @WithUserDetails("user2")
     void t1() throws Exception {
-        // WHEN
+
         ResultActions resultActions = mvc
                 .perform(
                         get("/order/3")
                 )
                 .andDo(print());
 
-        // THEN
+
         resultActions
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(handler().handlerType(OrderController.class))

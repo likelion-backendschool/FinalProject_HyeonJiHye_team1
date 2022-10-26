@@ -62,6 +62,48 @@ public class Order extends BaseEntity {
 
         return payPrice;
     }
+
+    public void setPaymentDone() {
+        for (OrderItem orderItem : orderItems) {
+            orderItem.setPaymentDone();
+        }
+
+        isPaid = true;
+    }
+
+    public void setRefundDone() {
+        for (OrderItem orderItem : orderItems) {
+            orderItem.setRefundDone();
+        }
+
+        isRefunded = true;
+    }
+
+    public int getPayPrice() {
+        int payPrice = 0;
+        for (OrderItem orderItem : orderItems) {
+            payPrice += orderItem.getPayPrice();
+        }
+
+        return payPrice;
+    }
+
+    public void makeName() {
+        String name = orderItems.get(0).getProduct().getSubject();
+
+        if (orderItems.size() > 1) {
+            name += " 외 %d권".formatted(orderItems.size() - 1);
+        }
+
+        this.name = name;
+    }
+
+    public boolean isPayable() {
+        if (isPaid) return false;
+        if (isCanceled) return false;
+
+        return true;
+    }
 }
 
 
