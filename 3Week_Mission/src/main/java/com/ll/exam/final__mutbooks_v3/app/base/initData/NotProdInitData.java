@@ -42,6 +42,8 @@ public class NotProdInitData {
             Member member1 = memberService.join("user1", "1234", "user1@test.com", null);
             Member member2 = memberService.join("user2", "1234", "user2@test.com", "홍길순");
 
+            Member member3 = memberService.join("admin1", "1234", "admin1@test.com", "관리자");
+
             postService.write(
                     member1,
                     "자바를 우아하게 사용하는 방법",

@@ -20,4 +20,3 @@ public class AdmHomeController {
         return "adm/home/main";
     }
 }
-

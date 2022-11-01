@@ -56,9 +56,14 @@ public class Member extends BaseEntity {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("MEMBER"));
 
-        // 닉네임을 가지고 있다면 작가의 권한을 가진다.
+        // nickname을 가지면 -> 작가 권한 부여
         if (StringUtils.hasText(nickname)) {
             authorities.add(new SimpleGrantedAuthority("AUTHOR"));
+        }
+
+        // username이 admin1이라면 -> 관리자 권한 부여
+        if (getUsername().equals("admin1")) {
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
         }
 
         return authorities;
